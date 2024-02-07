@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Vehículos</title>
+    <!-- Agrega los enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Registro de Vehículos</h2>
+
+    <form action="registrar.php" method="post" class="row">
+        <!-- Columna 1 -->
+        <div class="col-md-6">
+            <!-- Campo Chofer (lista desplegable) -->
+            <div class="form-group">
+                <label for="chofer">Chofer:</label>
+                <select class="form-control" name="chofer" id="chofer" required>
+                    <!-- Aquí se cargarán las opciones obtenidas de la base de datos -->
+                </select>
+            </div>
+
+            <!-- Campo Placa -->
+            <div class="form-group">
+                <label for="placa">Placa:</label>
+                <input type="text" class="form-control" name="placa" id="placa" required>
+            </div>
+        </div>
+
+        <!-- Columna 2 -->
+        <div class="col-md-6">
+            <!-- Campo Ubicación -->
+            <div class="form-group">
+                <label for="ubicacion">Ubicación:</label>
+                <input type="text" class="form-control" name="ubicacion" id="ubicacion" required>
+            </div>
+
+            <!-- Campo Fecha -->
+            <div class="form-group">
+                <label for="fecha">Fecha:</label>
+                <input type="date" class="form-control" name="fecha" id="fecha" required>
+            </div>
+
+            <!-- Botón de Registro -->
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+    </form>
+    <!-- Tabla de registros -->
+    <h3 class="mt-5">Registros Existentes</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Placa</th>
+                <th>Chofer</th>
+                <th>Ubicación</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Puedes llenar esta sección con datos de la base de datos o datos de ejemplo -->
+            <tr>
+                <td>ABC123</td>
+                <td>Chofer 1</td>
+                <td>Ubicación 1</td>
+                <td>2023-05-01</td>
+            </tr>
+            <tr>
+                <td>XYZ789</td>
+                <td>Chofer 2</td>
+                <td>Ubicación 2</td>
+                <td>2023-05-02</td>
+            </tr>
+            <!-- Agrega más filas según sea necesario -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Agrega los enlaces a los archivos JavaScript de Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Obtener la fecha actual
+    var fechaActual = new Date();
+
+    // Formatear la fecha como YYYY-MM-DD para que sea compatible con el campo de entrada de tipo 'date'
+    var dia = fechaActual.getDate();
+    var mes = fechaActual.getMonth() + 1; // Los meses en JavaScript son 0-indexados
+    var año = fechaActual.getFullYear();
+
+    if (dia < 10) {
+        dia = '0' + dia;
+    }
+    if (mes < 10) {
+        mes = '0' + mes;
+    }
+
+    var fechaFormateada = año + '-' + mes + '-' + dia;
+
+    // Establecer el valor del campo de entrada de fecha con la fecha actual
+    document.getElementById('fecha').value = fechaFormateada;
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var choferes = <?php echo json_encode($choferes); ?>; // Obtener los choferes desde PHP
+
+    // Llenar el campo "chofer" con los datos obtenidos
+    $(document).ready(function() {
+        $.each(choferes, function(index, chofer) {
+            $('#chofer').append('<option value="' + chofer + '">' + chofer + '</option>');
+        });
+    });
+</script>
+
+
+</body>
+</html>
