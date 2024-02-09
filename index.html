@@ -19,6 +19,15 @@
             <div class="form-group">
                 <label for="chofer">Chofer:</label>
                 <select class="form-control" name="chofer" id="chofer" required data-pkpersona="">
+                    <?php
+
+                    while ($row = $result->fetch_assoc()) {
+                      ?>
+                      <option value="<?php echo $row['pkpersona']; ?>" data-pkpersona="<?php echo $row['pkpersona']; ?>"><?php echo $row['nombre_completo']; ?></option>
+                      <?php
+                    }
+                    
+                    ?>
                 </select>
               
             </div>
